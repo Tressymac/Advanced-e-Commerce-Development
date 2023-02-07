@@ -15,6 +15,32 @@ function Board( {apiURL} ) {
     const [tasks, setTasks] = useState([]);
     const [loading, error, taskdata] = useTaskFetcher(apiURL+ `/tasks`);
 
+    //Event Handlers for dragging 
+    function onDragStart(event, taskId){
+        console.log('ID of task being dragged: ' + taskId)
+        event.dataTransfer.setData('taskid', taskId)
+    }
+
+    function onDragOver(event){
+        event.preventDefault();
+    }
+
+    function onDrop(event, laneId){
+        //Retrive the id of the task being dropped
+        const taskId = event.dataTransfer.getData('taskId');
+        console.log('Task ' + taskId + ' goes to lane ' + laneId);
+
+        //uodate the list of task in state with the updated version of the dropped task
+        const updatedTasks = tasks.filter((task) => {
+            //If the current task is the task that was dropped, then update its lane ID
+            if(task.id.toString() === taskId){
+                task.lane = laneId
+            }
+            return task;
+        });
+        setTasks(updatedTasks);
+    }
+
     useEffect(() => {setTasks(taskdata)}, [taskdata]);
 
     return(
@@ -22,10 +48,14 @@ function Board( {apiURL} ) {
             {lanes.map( (lane) => (
                 <Lane 
                     key={lane.id} 
+                    laneId={lane.id}
                     title={lane.title}
                     loading={loading}
                     error={error}
                     tasks={tasks.filter((task) => task.lane === lane.id)}
+                    onDragStart={onDragStart}
+                    onDragOver={onDragOver}
+                    onDrop={onDrop}
                 />
             ) )}
         </div>
