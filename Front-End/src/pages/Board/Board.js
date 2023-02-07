@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import useTaskFetcher from '../../hook/useTaskFetcher.js';
 
 import Lane from '../../components/Lane/Lane.js';
 import '../Board/Board.css';
@@ -11,34 +11,11 @@ const lanes = [
     { id: 4, title: 'Done' }
 ]
 
-function Board() {
-    // Set up initial state of state variables
+function Board( {apiURL} ) {
     const [tasks, setTasks] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [loading, error, taskdata] = useTaskFetcher(apiURL+ `/tasks`);
 
-    useEffect(() => {
-        // Define a function that loads tasks from the API
-        const loadTasks = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3000/api/v1/tasks`);
-                console.log(response.data);
-                setTasks( (tasks) => [...response.data]);
-                setLoading(false);
-            } catch (err) {
-                setLoading(false);
-                setError(err.message);
-                console.error(err);
-            }
-        };
-
-        // Call the function we defined
-        setLoading(true);
-        loadTasks();
-    }, []);
-
-
-
+    useEffect(() => {setTasks(taskdata)}, [taskdata]);
 
     return(
         <div className='Board-wrapper'>

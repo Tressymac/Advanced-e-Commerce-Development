@@ -7,6 +7,10 @@ function Header( {buddingPopWine} ){
             <img src={buddingPopWine} className="App-logo" alt='Budding pop drink wine' />
             <nav>
                 <RouterLink to='/' className='App-link'>Welcome to Projectr</RouterLink>
+                <div>
+                <RouterLink to='/' className='Header-link'>Boards</RouterLink>
+                <RouterLink to='/AllTasks' className='Header-link'>All Tasks</RouterLink>
+                </div>
             </nav>
         </header>
     )

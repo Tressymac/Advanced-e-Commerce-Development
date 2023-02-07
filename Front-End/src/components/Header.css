@@ -51,7 +51,16 @@
     position: relative;
   }
 
-  .App-header > nav > .App-link::after {
+  .App-header > nav > div > .Header-link {
+    margin-right: 30px;
+    color: #141619;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    position: relative;
+  }
+
+  .App-header > nav > div > .Header-link::after {
     content: "";
     width: 0;
     height: 8px;
@@ -62,6 +71,17 @@
     transition: all 500ms;
   }
 
-  .App-header > nav > .App-link:hover::after {
+  /* .App-header > nav > .App-link:hover::after {
     width: 100%;
+  } */
+
+  .App-header > nav > div > .Header-link:hover::after {
+    width: 100%;
+  }
+
+  .Header-link{
+    color: #141619;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px;
   }
