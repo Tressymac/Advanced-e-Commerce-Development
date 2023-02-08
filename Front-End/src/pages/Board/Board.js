@@ -24,6 +24,7 @@ function Board( {apiURL} ) {
         // Define a function that calls the API with the updated task
         const updateTask = async (task) => {
             try {
+                delete task._id;
                 const apiResponse = await axios.patch(apiURL + '/tasks/' + task.id, task)
                 await console.log(apiResponse.data);
             } catch (err) {
