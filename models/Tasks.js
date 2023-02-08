@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 //Create Schema 
 const TasksSchema = new Schema ({
+    id: {
+        type: Number,
+        required: true
+    },
+
     title: {
         type: String,
         required: true
